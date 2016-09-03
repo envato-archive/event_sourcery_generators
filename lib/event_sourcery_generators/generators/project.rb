@@ -1,12 +1,13 @@
+require 'pry'
 module EventSourceryGenerators
   module Generators
-    class CreateNewProject < Thor::Group
+    class Project < Thor::Group
       include Thor::Actions
 
       argument :project_name
 
       def self.source_root
-        File.join(File.dirname(__FILE__), 'templates', 'create_new_project')
+        File.join(File.dirname(__FILE__), 'templates', 'project')
       end
 
       def setup_ruby_project

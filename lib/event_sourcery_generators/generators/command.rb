@@ -2,7 +2,7 @@ require 'thor'
 
 module EventSourceryGenerators
   module Generators
-    class GenerateCommand < Thor::Group
+    class Command < Thor::Group
       include Thor::Actions
 
       argument :aggregate
@@ -10,7 +10,7 @@ module EventSourceryGenerators
       argument :event
 
       def self.source_root
-        File.join(File.dirname(__FILE__), 'templates/generate_command')
+        File.join(File.dirname(__FILE__), 'templates/command')
       end
 
       def create_aggregate_file
