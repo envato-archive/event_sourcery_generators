@@ -6,28 +6,41 @@ module EventSourceryGenerators
       argument :project_name
 
       def self.source_root
-        File.join(File.dirname(__FILE__), '..')
+        File.join(File.dirname(__FILE__), 'templates', 'create_new_project')
       end
 
-      def create_gemfile
-        template('templates/gemfile.tt', "#{project_name}/Gemfile")
-      end
-
-      def create_rakefile
-        template('templates/rakefile.tt', "#{project_name}/Rakefile")
-      end
-
-      def create_env_file
+      def setup_ruby_project
         create_file("#{project_name}/.env")
+        template('gemfile.tt', "#{project_name}/Gemfile")
+        template('rakefile.tt', "#{project_name}/Rakefile")
+      end
+
+      def setup_processes_infrastructure
+        # Procfile for web + event processing processes
+        template('Procfile.tt', "#{project_name}/Procfile")
+
+        # Web process
+        template('config.ru.tt', "#{project_name}/config.ru")
+      end
+
+      def setup_app
+        template('server.rb.tt', "#{project_name}/app/server.rb")
+
+        [ 'command', 'query' ].each do |side|
+          @side = side # So it's available in ERB
+          template('api.rb.tt', "#{project_name}/app/#{side}/api.rb")
+        end
       end
 
       def bundle_install
+        return
         inside(project_name) do
           run('bundle install', capture: true)
         end
       end
 
       def create_event_store
+        return
         confirmation_text = "Would you like to set up the required Event Store PostgreSQL database? (y/n)"
 
         if yes?(confirmation_text, :red)

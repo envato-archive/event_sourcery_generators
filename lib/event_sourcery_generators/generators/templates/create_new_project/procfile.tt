@@ -1,0 +1,1 @@
+web: unicorn -I . -c config/unicorn.rb config.ru
