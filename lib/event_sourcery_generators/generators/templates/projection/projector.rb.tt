@@ -1,0 +1,23 @@
+module <%= project_name.camelize %>
+  module Projections
+    module <%= projection_name.camelize %>
+      module Projectors
+        class V1
+          include EventSourcery::Projections::Projector
+
+          self.processor_name = :<%= projection_name %>
+
+          processes_events :placeholder
+
+          table :<%= projection_name %> do
+            column :id, 'UUID not null'
+          end
+
+          def process_placeholder(event)
+            table.insert(id: event.aggregate_id)
+          end
+        end
+      end
+    end
+  end
+end
