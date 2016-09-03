@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'event_sourcery_generators'
+EventSourceryGenerators::CLI.start
