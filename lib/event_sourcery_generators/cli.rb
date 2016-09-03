@@ -1,4 +1,5 @@
 require 'thor'
+require 'active_support/inflector'
 
 require 'event_sourcery_generators/generators/project'
 require 'event_sourcery_generators/generators/command'
