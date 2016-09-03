@@ -1,4 +1,3 @@
-require 'pry'
 module EventSourceryGenerators
   module Generators
     class Project < Thor::Group

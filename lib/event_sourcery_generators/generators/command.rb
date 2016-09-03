@@ -1,5 +1,3 @@
-require 'thor'
-
 module EventSourceryGenerators
   module Generators
     class Command < Thor::Group
