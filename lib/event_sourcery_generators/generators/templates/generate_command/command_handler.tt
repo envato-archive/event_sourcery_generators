@@ -1,6 +1,6 @@
 module Command
-  module <%= aggregate.capitalize %>
-    module <%= command.split('_').map(&:capitalize).join %>
+  module <%= aggregate.camelize %>
+    module <%= command.camelize %>
       class CommandHandler
         include EventSourcery::CommandHandler
 

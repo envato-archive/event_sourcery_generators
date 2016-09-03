@@ -10,19 +10,19 @@ module EventSourceryGenerators
       argument :event
 
       def self.source_root
-        File.join(File.dirname(__FILE__), '..')
+        File.join(File.dirname(__FILE__), 'templates/generate_command')
       end
 
       def create_aggregate_file
-        template('templates/aggregate.tt', "command/#{aggregate}/aggregate.rb")
+        template('aggregate.tt', "command/#{aggregate}/aggregate.rb")
       end
 
       def create_respository_file
-        template('templates/repository.tt', "command/#{aggregate}/repository.rb")
+        template('repository.tt', "command/#{aggregate}/repository.rb")
       end
 
       def create_command_handler_file
-        template('templates/command_handler.tt', "command/#{aggregate}/#{command}/command_handler.rb")
+        template('command_handler.tt', "command/#{aggregate}/#{command}/command_handler.rb")
       end
     end
   end
