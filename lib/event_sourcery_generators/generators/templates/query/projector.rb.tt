@@ -1,9 +1,9 @@
 module <%= project_name.camelize %>
-  module Projections
+  module Queries
     module <%= projection_name.camelize %>
       module Projectors
         class V1
-          include EventSourcery::Projections::Projector
+          include EventSourcery::Queries::Projector
 
           # The name of the projector
           projector_name :<%= projection_name %>

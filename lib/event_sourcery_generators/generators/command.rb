@@ -11,11 +11,11 @@ module EventSourceryGenerators
       end
 
       def create_respository_file
-        template('repository.rb.tt', "domain/#{aggregate}/repository.rb")
+        template('repository.rb.tt', "commands/#{aggregate}/repository.rb")
       end
 
       def create_or_inject_into_aggregate_file
-        aggregate_file = "domain/#{aggregate}/aggregate.rb"
+        aggregate_file = "commands/#{aggregate}/aggregate.rb"
 
         @command_method = erb_file('aggregate/command_method.rb.tt')
         @apply_event_method = erb_file('aggregate/apply_event_method.rb.tt')
@@ -29,8 +29,8 @@ module EventSourceryGenerators
       end
 
       def create_command_files
-        template('command.rb.tt', "domain/#{aggregate}/#{command}/command.rb")
-        template('command_handler.rb.tt', "domain/#{aggregate}/#{command}/command_handler.rb")
+        template('command.rb.tt', "commands/#{aggregate}/#{command}/command.rb")
+        template('command_handler.rb.tt', "commands/#{aggregate}/#{command}/command_handler.rb")
       end
 
       def inject_command_to_api

@@ -1,11 +1,11 @@
-require 'projections/<%= projection_name %>/model'
-require 'projections/<%= projection_name %>/view'
+require 'queries/<%= projection_name %>/model'
+require 'queries/<%= projection_name %>/view'
 
 module <%= project_name.camelize %>
-  module Projections
+  module Queries
     module <%= projection_name.camelize %>
       class QueryHandler
-        include EventSourcery::Projections::QueryHandler
+        include EventSourcery::Queries::QueryHandler
 
         def handle(query)
           <%= projection_name %> = Model.find_all

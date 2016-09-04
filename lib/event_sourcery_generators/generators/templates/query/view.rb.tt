@@ -1,8 +1,8 @@
 module <%= project_name.camelize %>
-  module Projections
+  module Queries
     module <%= projection_name.camelize %>
       class View
-        include EventSourcery::Projections::View
+        include EventSourcery::Queries::View
 
         def initialize(<%= projection_name %>:)
           @<%= projection_name %> = <%= projection_name %>

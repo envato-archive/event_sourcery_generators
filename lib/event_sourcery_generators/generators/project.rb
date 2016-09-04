@@ -28,7 +28,7 @@ module EventSourceryGenerators
       def setup_app
         template('web.rb.tt', "#{project_name}/web/web.rb")
 
-        [ 'command', 'query' ].each do |side|
+        [ 'commands', 'queries' ].each do |side|
           @side = side # So it's available in ERB
           template('api.rb.tt', "#{project_name}/web/#{side}/api.rb")
         end

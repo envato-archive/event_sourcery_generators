@@ -1,15 +1,15 @@
 module <%= project_name.camelize %>
-  module Projections
+  module Queries
     module <%= projection_name.camelize %>
       class Model
-        include EventSourcery::Projections::Model
+        include EventSourcery::Queries::Model
 
         # Specify which table and version of projection to read from
         table :<%= projection_name %>
         version 1
 
         # Define an immutable Data Transfer Object that get returned
-        <%= projection_name.singularize.camelize %> = EventSourcery::Projections::DTO(:id)
+        <%= projection_name.singularize.camelize %> = EventSourcery::Queries::DTO(:id)
 
         # Change this to whatever method makes sense for your model
         def self.find_all
