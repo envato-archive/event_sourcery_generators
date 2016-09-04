@@ -5,15 +5,21 @@ module <%= project_name.camelize %>
         class V1
           include EventSourcery::Projections::Projector
 
-          self.processor_name = :<%= projection_name %>
+          # The name of the projector
+          projector_name :<%= projection_name %>
 
-          processes_events :placeholder
+          # The event type(s) the projector is subscribed to
+          projects_events :placeholder
 
+          # The schema of the projection table, which is auto-created
+          # the first time the projector is started in the environment
           table :<%= projection_name %> do
             column :id, 'UUID not null'
           end
 
-          def process_placeholder(event)
+          # Each event type the projector projects is invoked through
+          # `project_<event.type>`, receiving the `event` as argument
+          def project_placeholder(event)
             table.insert(id: event.aggregate_id)
           end
         end
