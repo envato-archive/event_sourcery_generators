@@ -6,7 +6,6 @@ module <%= project_name.camelize %>
 
         # Specify which table and version of projection to read from
         table :<%= projection_name %>
-        version 1
 
         # Define an immutable Data Transfer Object that get returned
         <%= projection_name.singularize.camelize %> = EventSourcery::Queries::DTO(:id)

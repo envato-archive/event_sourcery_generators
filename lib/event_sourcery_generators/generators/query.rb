@@ -10,7 +10,7 @@ module EventSourceryGenerators
       end
 
       def create_projector
-        template('projector.rb.tt', "queries/#{projection_name}/projectors/v1.rb")
+        template('projector.rb.tt', "queries/#{projection_name}/projector.rb")
       end
 
       def create_query_handling_files
