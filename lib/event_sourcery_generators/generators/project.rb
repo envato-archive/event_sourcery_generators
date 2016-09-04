@@ -5,6 +5,8 @@ module EventSourceryGenerators
 
       argument :project_name
 
+      class_options skip_bundle: false, skip_db: false
+
       def self.source_root
         File.join(File.dirname(__FILE__), 'templates', 'project')
       end
@@ -33,14 +35,16 @@ module EventSourceryGenerators
       end
 
       def bundle_install
-        return
+        return if options[:skip_bundle]
+
         inside(project_name) do
           run('bundle install', capture: true)
         end
       end
 
       def create_event_store
-        return
+        return if options[:skip_db]
+
         confirmation_text = "Would you like to set up the required Event Store PostgreSQL database? (y/n)"
 
         if yes?(confirmation_text, :red)
