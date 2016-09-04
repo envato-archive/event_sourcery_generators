@@ -34,7 +34,7 @@ module EventSourceryGenerators
       end
 
       def inject_command_to_api
-        insert_into_file('app/command/api.rb', after: "def self.registered(app)\n") do
+        insert_into_file('web/command/api.rb', after: "def self.registered(app)\n") do
           erb_file('api_endpoint.rb.tt')
         end
       end
