@@ -4,7 +4,7 @@ module <%= project_name.camelize %>
       def self.load(aggregate_id, event_source, event_sink)
         events = event_source.load(aggregate_id)
 
-        <%= aggregate_name %> = Aggregate.new(aggregate_id, event_sink)
+        <%= aggregate_name %> = <%= aggregate_class_name %>.new(aggregate_id, event_sink)
         <%= aggregate_name %>.load_history(events)
         <%= aggregate_name %>
       end
