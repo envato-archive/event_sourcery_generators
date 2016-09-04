@@ -1,12 +1,12 @@
-module Command
-  module <%= aggregate.camelize %>
+module <%= project_name.camelize %>
+  module <%= aggregate_class_name %>
     class Repository
       def self.load(aggregate_id, event_source, event_sink)
         events = event_source.load(aggregate_id)
 
-        <%= aggregate %> = Aggregate.new(aggregate_id, event_sink)
-        <%= aggregate %>.load_history(events)
-        <%= aggregate %>
+        <%= aggregate_name %> = Aggregate.new(aggregate_id, event_sink)
+        <%= aggregate_name %>.load_history(events)
+        <%= aggregate_name %>
       end
     end
   end

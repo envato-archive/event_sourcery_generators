@@ -1,0 +1,15 @@
+module <%= project_name.camelize %>
+  module <%= aggregate_class_name %>
+    module <%= command_class_name %>
+      class Command
+        include EventSourcery::Command
+
+        attr_reader :aggregate_id, :payload
+
+        def validate!
+          # raise Error::MalformedCommandError.new(normalized_errors: request.normalized_errors)
+        end
+      end
+    end
+  end
+end

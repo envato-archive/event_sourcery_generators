@@ -1,0 +1,9 @@
+        app.post '/<%= aggregate.pluralize %>/:aggregate_id/<%= command %>' do
+          command = <%= aggregate.camelize %>::<%= command.camelize %>::Command.build!(
+            aggregate_id: params[:aggregate_id],
+            payload: JSON.parse(request_body)
+          )
+          <%= aggregate.camelize %>::<%= command.camelize %>::CommandHandler.handle(command)
+          status 201
+        end
+

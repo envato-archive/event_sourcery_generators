@@ -1,12 +1,12 @@
-module Command
-  module <%= aggregate.camelize %>
-    module <%= command.camelize %>
+module <%= project_name.camelize %>
+  module <%= aggregate_class_name %>
+    module <%= command_class_name %>
       class CommandHandler
         include EventSourcery::CommandHandler
 
         def handle(command)
-          <%= aggregate %> = Repository.load(command.aggregate_id, event_source, event_sink)
-          <%= aggregate %>.<%= command %>(command)
+          <%= aggregate_name %> = Repository.load(command.aggregate_id, event_source, event_sink)
+          <%= aggregate_name %>.<%= command_name %>(command.payload)
         end
       end
     end

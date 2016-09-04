@@ -1,0 +1,5 @@
+
+      def apply_<%= event_name %>(event)
+        # Mutate state of aggregate based on event, e.g.
+        # @<%= event_name %>_occurred = true
+      end
