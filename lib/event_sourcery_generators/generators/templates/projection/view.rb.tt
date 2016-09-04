@@ -8,7 +8,7 @@ module <%= project_name.camelize %>
           @<%= projection_name %> = <%= projection_name %>
         end
 
-        def decorate
+        def decorate(<%= projection_name %>:)
           {
             <%= projection_name %>: @<%= projection_name %>.map do |<%= projection_name.singularize %>|
               { id: <%= projection_name.singularize %>.id }
