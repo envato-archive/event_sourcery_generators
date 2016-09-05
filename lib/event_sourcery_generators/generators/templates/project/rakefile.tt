@@ -1,5 +1,3 @@
-require 'bundler/gem_tasks'
-
 desc 'Loads the project and starts IRB'
 task :console => :environment do
   require 'irb'
