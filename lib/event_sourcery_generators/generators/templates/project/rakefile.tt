@@ -4,3 +4,7 @@ task :console => :environment do
   ARGV.clear
   IRB.start
 end
+
+task :environment do
+  require 'bundler/setup'
+end
