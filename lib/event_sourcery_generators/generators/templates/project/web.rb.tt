@@ -1,8 +1,8 @@
 require 'sinatra/base'
 require 'better_errors'
 
-require 'app/command/api'
-require 'app/query/api'
+require 'web/commands/api'
+require 'web/queries/api'
 
 module <%= project_name.camelize %>
   class Server < Sinatra::Base
@@ -23,7 +23,7 @@ module <%= project_name.camelize %>
     disable :protection
 
     # Register Command and Query APIs
-    register <%= project_name.camelize %>::Command::API
-    register <%= project_name.camelize %>::Query::API
+    register <%= project_name.camelize %>::Commands::API
+    register <%= project_name.camelize %>::Queries::API
   end
 end

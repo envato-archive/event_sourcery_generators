@@ -1,4 +1,4 @@
-# This module contains the API endpoints for all <%= @side.pluralize %>.
+# This module contains the API endpoints for all <%= @side %>.
 
 module <%= project_name.camelize %>
   module <%= @side.camelize %>
