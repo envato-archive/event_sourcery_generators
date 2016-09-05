@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'event_sourcery/version'
+require 'event_sourcery_generators/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'event_sourcery_generators'
-  spec.version = EventSourcery::VERSION
+  spec.version = EventSourceryGenerators::VERSION
   spec.authors = ['Sebastian von Conrad']
   spec.email = ['sebastian.von.conrad@envato.com']
 
