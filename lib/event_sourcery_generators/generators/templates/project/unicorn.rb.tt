@@ -1,0 +1,5 @@
+worker_processes ENV.fetch('UNICORN_WORKERS', 3).to_i
+preload_app true
+before_fork do |server, worker|
+  $unicorn_worker_number = worker.nr
+end

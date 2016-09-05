@@ -15,6 +15,7 @@ module EventSourceryGenerators
         create_file("#{project_name}/.env")
         template('gemfile.tt', "#{project_name}/Gemfile")
         template('rakefile.tt', "#{project_name}/Rakefile")
+        template('gitignore.tt', "#{project_name}/.gitignore")
       end
 
       def setup_processes_infrastructure
@@ -23,6 +24,9 @@ module EventSourceryGenerators
 
         # Web process
         template('config.ru.tt', "#{project_name}/config.ru")
+
+        template('unicorn.rb.tt', "#{project_name}/config/unicorn.rb")
+        template('unicorn.rb.tt', "#{project_name}/config/unicorn.rb.example")
       end
 
       def setup_app
