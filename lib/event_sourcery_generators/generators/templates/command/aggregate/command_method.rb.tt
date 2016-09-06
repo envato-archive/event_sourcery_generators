@@ -7,5 +7,5 @@
         event_body = payload
 
         # Apply and persist the event
-        apply_event EventSourcery::Event.new(type: :<%= event_name %>, body: event_body)
+        apply_event EventSourcery::Event.new(aggregate_id: id, type: :<%= event_name %>, body: event_body)
       end
