@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'better_errors'
+require 'event_sourcery'
 
 require 'app/command/api'
 require 'app/query/api'

@@ -1,3 +1,5 @@
+require 'commands/<%= aggregate_name %>/<%= aggregate_name %>'
+
 module <%= project_name.camelize %>
   module <%= aggregate_class_name %>
     class Repository
