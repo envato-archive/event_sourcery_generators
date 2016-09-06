@@ -6,6 +6,11 @@ module <%= project_name.camelize %>
 
         attr_reader :aggregate_id, :payload
 
+        def initialize(aggregate_id:, payload:)
+          @aggregate_id = aggregate_id
+          @payload = payload
+        end
+
         def validate!
           # raise Error::MalformedCommandError.new(normalized_errors: request.normalized_errors)
         end
