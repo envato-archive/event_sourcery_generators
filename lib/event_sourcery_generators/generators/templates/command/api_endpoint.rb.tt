@@ -3,7 +3,7 @@
         app.post '/<%= aggregate.pluralize %>/:aggregate_id/<%= command %>' do
           command = <%= aggregate.camelize %>::<%= command.camelize %>::Command.build!(
             aggregate_id: params[:aggregate_id],
-            payload: JSON.parse(request_body)
+            payload: JSON.parse(request.body.read)
           )
           <%= aggregate.camelize %>::<%= command.camelize %>::CommandHandler.handle(command)
           status 201
