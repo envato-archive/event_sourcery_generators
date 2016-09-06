@@ -1,8 +1,10 @@
-require 'bundler/gem_tasks'
-
 desc 'Loads the project and starts IRB'
 task :console => :environment do
   require 'irb'
   ARGV.clear
   IRB.start
+end
+
+task :environment do
+  require 'bundler/setup'
 end
