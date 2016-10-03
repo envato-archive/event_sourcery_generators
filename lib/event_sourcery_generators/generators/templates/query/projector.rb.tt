@@ -2,23 +2,25 @@ module <%= project_name.camelize %>
   module Queries
     module <%= projection_name.camelize %>
       class Projector
-        include EventSourcery::Queries::Projector
+        include EventSourcery::Projector
 
-        # The name of the projector
-        projector_name :<%= projection_name %>
+        self.processor_name = :<%= projection_name %>
 
-        # The event type(s) the projector is subscribed to
-        projects_events :placeholder
+        processes_events :placeholder
 
-        # The schema of the projection table, which is auto-created
-        # the first time the projector is started in the environment
-        table :<%= projection_name %> do
+        table :query_<%= projection_name %> do
           column :id, 'UUID not null'
         end
 
-        # Each event type the projector projects is invoked through
-        # `project_<event.type>`, receiving the `event` as argument
-        def project_placeholder(event)
+        def process(event)
+          method = :"process_#{event.type}"
+          raise "I don't know how to process #{event.type}" unless respond_to?(method, true)
+          send(method, event)
+        end
+
+        private
+
+        def process_placeholder(event)
           table.insert(id: event.aggregate_id)
         end
       end

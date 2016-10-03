@@ -2,15 +2,9 @@ module <%= project_name.camelize %>
   module Queries
     module <%= projection_name.camelize %>
       class View
-        include EventSourcery::Queries::View
-
-        def initialize(<%= projection_name %>:)
-          @<%= projection_name %> = <%= projection_name %>
-        end
-
-        def decorate(<%= projection_name %>:)
+        def self.decorate(<%= projection_name %>:)
           {
-            <%= projection_name %>: @<%= projection_name %>.map do |<%= projection_name.singularize %>|
+            <%= projection_name %>: <%= projection_name %>.map do |<%= projection_name.singularize %>|
               { id: <%= projection_name.singularize %>.id }
             end
           }

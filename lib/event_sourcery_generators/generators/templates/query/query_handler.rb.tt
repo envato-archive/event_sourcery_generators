@@ -5,9 +5,7 @@ module <%= project_name.camelize %>
   module Queries
     module <%= projection_name.camelize %>
       class QueryHandler
-        include EventSourcery::Queries::QueryHandler
-
-        def handle(query)
+        def self.handle(query)
           <%= projection_name %> = Model.find_all
           View.decorate(<%= projection_name %>: <%= projection_name %>)
         end
