@@ -1,29 +1,28 @@
 module <%= project_name.camelize %>
   module EventProcessors
-    module <%= dep_name.camelize %>
+    class <%= dep_name.camelize %>
       include EventSourcery::DownstreamEventProcessor
 
-      # The name of the downstream event processor
-      processor_name :<%= dep_name %>
+      self.processor_name = :<%= dep_name %>
 
-      # The event type(s) the downstream event processor is
-      # subscribed to
       processes_events :placeholder
 
-      # The event type(s) the downstream event processor emits
       emits_events :placeholder
 
-      # Each event type the downstream event processor processes
-      # is invoked through `project_<event.type>`, receiving the
-      # `event` as argument
+      def process(event)
+        method = :"process_#{event.type}"
+        raise "I don't know how to process #{event.type}" unless respond_to?(method, true)
+        send(method, event)
+      end
+
+      private
+
       def process_placeholder(event)
-        event = EventSourcery::Event.new(
+        emit_event(
           type: :placeholder,
           aggregate_id: event.aggregate_id,
-          body: { }
+          body: {},
         )
-
-        emit_event(event)
       end
     end
   end
