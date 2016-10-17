@@ -1,16 +1,16 @@
 module EventSourceryGenerators
   module Generators
-    class DEP < Thor::Group
+    class Reactor < Thor::Group
       include Thor::Actions
 
-      argument :dep_name
+      argument :reactor_name
 
       def self.source_root
-        File.join(File.dirname(__FILE__), 'templates/dep')
+        File.join(File.dirname(__FILE__), 'templates/reactor')
       end
 
       def create_downstream_event_processor
-        template('dep.rb.tt', "event_processors/#{dep_name}.rb")
+        template('reactor.rb.tt', "reactors/#{reactor_name}.rb")
       end
 
       private
