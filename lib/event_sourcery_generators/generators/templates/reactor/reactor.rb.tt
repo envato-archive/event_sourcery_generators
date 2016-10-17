@@ -1,0 +1,26 @@
+module <%= project_name.camelize %>
+  module Reactors
+    module <%= reactor_name.camelize %>
+      include EventSourcery::EventProcessing::Reactor
+
+      # The name of the reactor
+      processor_name :<%= reactor_name %>
+
+      # The event type(s) the reactor is subscribed to
+      processes_events :placeholder
+
+      # The event type(s) the reactor emits
+      emits_events :placeholder
+
+      # Each event type the reactor processes is invoked through
+      # `project_<event.type>`, receiving the `event` as argument
+      def process_placeholder(event)
+        emit_event(
+          type: :placeholder,
+          aggregate_id: event.aggregate_id,
+          body: {},
+        )
+      end
+    end
+  end
+end
