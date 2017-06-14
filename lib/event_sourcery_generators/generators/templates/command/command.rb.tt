@@ -1,13 +1,35 @@
-module <%= project_name.underscore.camelize %>
-  module <%= aggregate_class_name %>
-    module <%= command_class_name %>
-      class Command
-        include EventSourcery::Command
+require 'app/aggregates/<%= aggregate_name %>'
 
-        attr_reader :aggregate_id, :payload
+module <%= project_class_name %>
+  module Commands
+    module <%= aggregate_class_name %>
+      module <%= command_class_name %>
+        class Command
+          attr_reader :aggregate_id, :payload
 
-        def validate!
-          # raise Error::MalformedCommandError.new(normalized_errors: request.normalized_errors)
+          def initialize(params)
+            @payload      = params
+            @aggregate_id = payload.delete(:<%= aggregate_name %>_id)
+          end
+
+          def validate
+            # Add validation here
+          end
+        end
+
+        class CommandHandler
+          def self.handle(command)
+            command.validate
+
+            repository = EventSourcery::Repository.new(
+              event_source: <%= project_class_name %>.event_source,
+              event_sink:   <%= project_class_name %>.event_sink,
+            )
+
+            aggregate = repository.load(Aggregates::<%= aggregate_class_name %>, command.aggregate_id)
+            aggregate.<%= command_name %>(command.payload.to_h)
+            repository.save(aggregate)
+          end
         end
       end
     end

@@ -1,9 +1,6 @@
-        app.post '/<%= aggregate.pluralize %>/:aggregate_id/<%= command %>' do
-          command = <%= aggregate.classify %>::<%= command.classify %>::Command.build!(
-            aggregate_id: params[:aggregate_id],
-            payload: JSON.parse(request.body.read)
-          )
-          <%= aggregate.classify %>::<%= command.classify %>::CommandHandler.handle(command)
-          status 201
-        end
+    post '/<%= aggregate.pluralize %>/:aggregate_id/<%= command %>' do
+      command = Commands::<%= aggregate_class_name %>::<%= command_class_name %>::Command.new(params)
+      Commands::<%= aggregate_class_name %>::<%= command_class_name %>::CommandHandler.handle(command)
+      status 201
+    end
 
