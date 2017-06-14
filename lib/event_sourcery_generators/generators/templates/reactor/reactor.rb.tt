@@ -12,6 +12,7 @@ module <%= project_name.underscore.camelize %>
       #   column :title,   :text
       # end
 
+    <%- if event_names.empty? -%>
       # process TodoAdded do |event|
       #   table.insert(
       #     todo_id: event.aggregate_id,
@@ -29,6 +30,13 @@ module <%= project_name.underscore.camelize %>
       #     )
       #   )
       # end
+    <%- else -%>
+      <% event_names.each do |event_name| %>
+      process <%= event_name.underscore.camelize %> do |event|
+        # Update scratch tables, emit events, ...
+      end
+      <%- end -%>
+    <%- end -%>
     end
   end
 end

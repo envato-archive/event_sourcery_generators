@@ -4,6 +4,7 @@ module EventSourceryGenerators
       include Thor::Actions
 
       argument :reactor_name
+      argument :event_names, type: :array, default: []
 
       def self.source_root
         File.join(File.dirname(__FILE__), 'templates/reactor')
