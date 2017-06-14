@@ -1,0 +1,28 @@
+require 'sinatra'
+
+module <%= project_name.camelize %>
+  class Server < Sinatra::Base
+    BadRequest = Class.new(StandardError)
+    error BadRequest do |error|
+      body "Bad Request: #{error.message}"
+      status 400
+    end
+
+    UnprocessableEntity = Class.new(StandardError)
+    error UnprocessableEntity do |error|
+      body "Unprocessable Entity: #{error.message}"
+      status 422
+    end
+
+    # Add your API routes here!
+    #
+    # eg.
+    # get '/todos' do
+    #   ...
+    # end
+    #
+    # post '/todo/:id' do
+    #   ...
+    # end
+  end
+end
