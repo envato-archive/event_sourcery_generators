@@ -1,6 +1,6 @@
-module <%= project_name.camelize %>
+module <%= project_name.underscore.camelize %>
   module Queries
-    module <%= projection_name.camelize %>
+    module <%= projection_name.classify %>
       class Model
         include EventSourcery::Queries::Model
 
@@ -8,14 +8,14 @@ module <%= project_name.camelize %>
         table :<%= projection_name %>
 
         # Define an immutable Data Transfer Object that get returned
-        <%= projection_name.singularize.camelize %> = EventSourcery::Queries::DTO(:id)
+        <%= projection_name.singularize.classify %> = EventSourcery::Queries::DTO(:id)
 
         # Change this to whatever method makes sense for your model
         def self.find_all
           records = table.all
 
           records.map do |record|
-            <%= projection_name.singularize.camelize %>.new(record)
+            <%= projection_name.singularize.classify %>.new(record)
           end
         end
       end

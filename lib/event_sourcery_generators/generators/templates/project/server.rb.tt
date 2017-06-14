@@ -1,6 +1,6 @@
 require 'sinatra'
 
-module <%= project_name.camelize %>
+module <%= project_name.underscore.camelize %>
   class Server < Sinatra::Base
     BadRequest = Class.new(StandardError)
     error BadRequest do |error|

@@ -1,10 +1,10 @@
 module RequestHelpers
   def app
-    @@app ||= <%= project_name.camelize %>::Server
+    @@app ||= <%= project_name.underscore.camelize %>::Server
   end
 
   def last_event(aggregate_id)
-    <%= project_name.camelize %>.event_store
+    <%= project_name.underscore.camelize %>.event_store
       .get_events_for_aggregate_id(aggregate_id).last
   end
 end

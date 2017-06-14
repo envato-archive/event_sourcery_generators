@@ -1,4 +1,4 @@
-module <%= project_name.camelize %>
+module <%= project_name.underscore.camelize %>
   module <%= aggregate_class_name %>
     class Repository
       def self.load(aggregate_id, event_source, event_sink)

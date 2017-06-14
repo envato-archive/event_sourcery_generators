@@ -7,7 +7,7 @@ end
 namespace :db do
   desc 'Create database'
   task create: :environment do
-    url = <%= project_name.camelize %>.config.database_url
+    url = <%= project_name.underscore.camelize %>.config.database_url
     database_name = File.basename(url)
     database = Sequel.connect URI.join(url, '/template1').to_s
     database.run("CREATE DATABASE #{database_name}")
@@ -16,7 +16,7 @@ namespace :db do
 
   desc 'Drop database'
   task drop: :environment do
-    url = <%= project_name.camelize %>.config.database_url
+    url = <%= project_name.underscore.camelize %>.config.database_url
     database_name = File.basename(url)
     database = Sequel.connect URI.join(url, '/template1').to_s
     database.run("DROP DATABASE IF EXISTS #{database_name}")

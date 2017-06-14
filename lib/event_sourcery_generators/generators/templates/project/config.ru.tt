@@ -1,3 +1,3 @@
 require 'app/server'
 
-run <%= project_name.camelize %>::Server.new
+run <%= project_name.underscore.camelize %>::Server.new

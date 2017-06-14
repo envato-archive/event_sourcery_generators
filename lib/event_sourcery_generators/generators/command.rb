@@ -46,7 +46,7 @@ module EventSourceryGenerators
       end
 
       def aggregate_class_name
-        aggregate.camelize
+        aggregate.classify
       end
 
       def command_name
@@ -54,7 +54,7 @@ module EventSourceryGenerators
       end
 
       def command_class_name
-        command_name.camelize
+        command_name.classify
       end
 
       def event_name

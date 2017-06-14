@@ -1,9 +1,9 @@
 require 'queries/<%= projection_name %>/model'
 require 'queries/<%= projection_name %>/view'
 
-module <%= project_name.camelize %>
+module <%= project_name.underscore.camelize %>
   module Queries
-    module <%= projection_name.camelize %>
+    module <%= projection_name.classify %>
       class QueryHandler
         include EventSourcery::Queries::QueryHandler
 
