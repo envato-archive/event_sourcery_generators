@@ -9,8 +9,8 @@ module EventSourceryGenerators
         File.join(File.dirname(__FILE__), 'templates/reactor')
       end
 
-      def create_downstream_event_processor
-        template('reactor.rb.tt', "reactors/#{reactor_name}.rb")
+      def create_reactor
+        template('reactor.rb.tt', "app/reactors/#{reactor_name}.rb")
       end
 
       private
