@@ -4,4 +4,3 @@
         # @<%= event_name %>_occurred = true
       end
 
-
