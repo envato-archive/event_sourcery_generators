@@ -47,7 +47,7 @@ module EventSourceryGenerators
         return if options[:skip_db]
 
         inside(project_name) do
-          run('bundle exec rake db:create db:migrate', capture: true)
+          run('bundle exec rake db:create db:migrate', capture: false)
         end
       end
 

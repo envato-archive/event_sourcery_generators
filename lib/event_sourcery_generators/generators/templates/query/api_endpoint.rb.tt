@@ -1,0 +1,7 @@
+    get '/<%= query_name %>' do
+      body JSON.pretty_generate(
+        <%= project_class_name %>::Projections::<%= query_class_name %>::Query.handle
+      )
+      status 200
+    end
+

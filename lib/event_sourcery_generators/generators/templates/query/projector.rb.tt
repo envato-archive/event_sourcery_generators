@@ -1,26 +1,39 @@
 module <%= project_class_name %>
-  module Queries
-    module <%= projection_name.classify %>
+  module Projections
+    module <%= query_class_name %>
       class Projector
-        include EventSourcery::Queries::Projector
+        include EventSourcery::Postgres::Projector
 
-        # The name of the projector
-        projector_name :<%= projection_name %>
+        projector_name :<%= query_name %>
 
-        # The event type(s) the projector is subscribed to
-        projects_events :placeholder
-
-        # The schema of the projection table, which is auto-created
-        # the first time the projector is started in the environment
-        table :<%= projection_name %> do
-          column :id, 'UUID not null'
+        table :query_<%= query_name %> do
+          # Add your projection table columns here, eg:
+          # column :todo_id, 'UUID NOT NULL'
+          # column :title, :text
+          # column :due_date, DateTime
         end
+    <%- if event_names.empty? -%>
 
-        # Each event type the projector projects is invoked through
-        # `project_<event.type>`, receiving the `event` as argument
-        def project_placeholder(event)
-          table.insert(id: event.aggregate_id)
+        # project TodoAdded do |event|
+        #   Modify your projection table here, eg:
+        #   table.insert(
+        #     todo_id: event.aggregate_id,
+        #     title: event.body['title'],
+        #     due_date: event.body['due_date'],
+        #   )
+        # end
+    <%- else -%>
+      <% event_names.each do |event_name| %>
+        project <%= event_name.underscore.camelize %> do |event|
+          #   Modify your projection table here, eg:
+          #   table.insert(
+          #     todo_id: event.aggregate_id,
+          #     title: event.body['title'],
+          #     due_date: event.body['due_date'],
+          #   )
         end
+      <%- end -%>
+    <%- end -%>
       end
     end
   end

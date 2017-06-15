@@ -1,0 +1,4 @@
+    <%= project_class_name %>::Projections::<%= query_class_name %>::Projector.new(
+      tracker: tracker,
+      db_connection: db_connection,
+    ),

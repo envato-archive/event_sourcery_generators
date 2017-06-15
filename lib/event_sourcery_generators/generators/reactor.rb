@@ -14,6 +14,10 @@ module EventSourceryGenerators
         template('reactor.rb.tt', "app/reactors/#{reactor_name}.rb")
       end
 
+      def add_reactor_to_rakefile
+        insert_into_file('Rakefile', erb_file('reactor_process.tt'), after: "processors = [\n")
+      end
+
       private
 
       def project_name
@@ -26,6 +30,11 @@ module EventSourceryGenerators
 
       def reactor_class_name
         @reactor_class_name ||= reactor_name.underscore.camelize
+      end
+
+      def erb_file(file)
+        path = File.join(self.class.source_root, file)
+        ERB.new(::File.binread(path), nil, "-", "@output_buffer").result(binding)
       end
     end
   end

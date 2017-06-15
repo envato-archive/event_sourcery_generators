@@ -1,6 +1,7 @@
 require 'sinatra'
 
 Dir.glob(__dir__ + '/../commands/**/*.rb').each { |f| require f }
+Dir.glob(__dir__ + '/../projections/**/query.rb').each { |f| require f }
 
 module <%= project_class_name %>
   class Server < Sinatra::Base
@@ -33,10 +34,14 @@ module <%= project_class_name %>
     def json_params
       # Coerce this into a symbolised Hash so Sinatra data
       # structures don't leak into the command layer
+
+      request_body = request.body.read
+      unless request_body.empty?
+        params.merge!(JSON.parse(request_body))
+      end
+
       Hash[
-        params.merge(
-          JSON.parse(request.body.read)
-        ).map{ |k, v| [k.to_sym, v] }
+        params.map{ |k, v| [k.to_sym, v] }
       ]
     end
 

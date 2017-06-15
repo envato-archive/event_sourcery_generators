@@ -2,6 +2,8 @@ require 'event_sourcery'
 require 'event_sourcery/postgres'
 
 Dir.glob(__dir__ + '/../app/events/*.rb').each { |f| require f }
+Dir.glob(__dir__ + '/../app/reactors/*.rb').each { |f| require f }
+Dir.glob(__dir__ + '/../app/projections/**/projector.rb').each { |f| require f }
 
 module <%= project_class_name %>
   class Config

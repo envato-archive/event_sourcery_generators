@@ -1,0 +1,11 @@
+module <%= project_class_name %>
+  module Projections
+    module <%= query_class_name %>
+      class Query
+        def self.handle
+          <%= project_class_name %>.projections_database[:query_<%= query_name %>].all
+        end
+      end
+    end
+  end
+end

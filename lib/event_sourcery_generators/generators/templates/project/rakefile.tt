@@ -40,7 +40,11 @@ namespace :db do
     url = <%= project_class_name %>.config.database_url
     database_name = File.basename(url)
     database = Sequel.connect URI.join(url, '/template1').to_s
-    database.run("CREATE DATABASE #{database_name}")
+    begin
+      database.run("CREATE DATABASE #{database_name}")
+    rescue StandardError => e
+      puts "Could not create database '#{database_name}': #{e.class.name} #{e.message}"
+    end
     database.disconnect
   end
 
@@ -56,6 +60,10 @@ namespace :db do
   desc 'Migrate database'
   task migrate: :environment do
     database = EventSourcery::Postgres.config.event_store_database
-    EventSourcery::Postgres::Schema.create_event_store(db: database)
+    begin
+      EventSourcery::Postgres::Schema.create_event_store(db: database)
+    rescue StandardError => e
+      puts "Could not create event store: #{e.class.name} #{e.message}"
+    end
   end
 end

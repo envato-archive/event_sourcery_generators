@@ -1,11 +1,11 @@
 module <%= project_class_name %>
   module Reactors
-    module <%= reactor_class_name %>
+    class <%= reactor_class_name %>
       include EventSourcery::Postgres::Reactor
 
       processor_name :<%= reactor_name.underscore %>
 
-      # emits_events StakeholderNotifiedOfTodoCompletion.type
+      # emits_events ExampleEvent.type, AnotherEvent.type
 
       # table :reactor_<%= reactor_name.underscore %> do
       #   column :todo_id, :uuid, primary_key: true
