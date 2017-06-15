@@ -16,4 +16,5 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'better_errors'
   gem 'foreman'
+  gem 'shotgun'
 end
