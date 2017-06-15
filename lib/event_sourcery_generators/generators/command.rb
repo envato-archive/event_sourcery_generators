@@ -45,19 +45,19 @@ module EventSourceryGenerators
       private
 
       def aggregate_name
-        aggregate.underscore
+        @aggregate_name ||= aggregate.underscore
       end
 
       def aggregate_class_name
-        aggregate.classify
+        @aggregate_class_name ||= aggregate_name.camelize
       end
 
       def command_name
-        command.underscore
+        @command_name ||= command.underscore
       end
 
       def command_class_name
-        command_name.classify
+        @command_class_name ||= command_name.camelize
       end
 
       def event_name
@@ -68,7 +68,7 @@ module EventSourceryGenerators
       end
 
       def event_class_name
-        event_name.underscore.camelize
+        @event_class_name ||= event_name.underscore.camelize
       end
 
       def erb_file(file)
