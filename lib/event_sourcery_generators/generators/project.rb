@@ -16,6 +16,10 @@ module EventSourceryGenerators
         template('rakefile.tt', "#{project_name}/Rakefile")
       end
 
+      def add_readme
+        template('readme.md.tt', "#{project_name}/README.md")
+      end
+
       def bundle_install
         return if options[:skip_bundle]
 
