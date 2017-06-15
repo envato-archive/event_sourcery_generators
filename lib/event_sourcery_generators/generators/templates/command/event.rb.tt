@@ -1,0 +1,1 @@
+<%= event_class_name %> = Class.new(EventSourcery::Event)

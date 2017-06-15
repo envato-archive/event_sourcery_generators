@@ -28,6 +28,14 @@ module EventSourceryGenerators
         template('command.rb.tt', "app/commands/#{aggregate}/#{command}.rb")
       end
 
+      def create_event
+        event_file = "app/events/#{event_name}.rb"
+
+        unless File.exist?(event_file)
+          template('event.rb.tt', event_file)
+        end
+      end
+
       def inject_command_to_api
         insert_into_file('app/web/server.rb', after: "< Sinatra::Base\n") do
           erb_file('api_endpoint.rb.tt')

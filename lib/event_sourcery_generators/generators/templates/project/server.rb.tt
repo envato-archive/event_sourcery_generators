@@ -1,5 +1,7 @@
 require 'sinatra'
 
+Dir.glob(__dir__ + '/../commands/**/*.rb').each { |f| require f }
+
 module <%= project_class_name %>
   class Server < Sinatra::Base
     BadRequest = Class.new(StandardError)

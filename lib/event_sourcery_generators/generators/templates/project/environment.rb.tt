@@ -1,6 +1,8 @@
 require 'event_sourcery'
 require 'event_sourcery/postgres'
 
+Dir.glob(__dir__ + '/../app/events/*.rb').each { |f| require f }
+
 module <%= project_class_name %>
   class Config
     attr_accessor :database_url

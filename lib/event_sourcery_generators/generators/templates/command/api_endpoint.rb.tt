@@ -1,6 +1,6 @@
     post '/<%= aggregate.pluralize %>/:aggregate_id/<%= command %>' do
-      command = Commands::<%= aggregate_class_name %>::<%= command_class_name %>::Command.new(params)
-      Commands::<%= aggregate_class_name %>::<%= command_class_name %>::CommandHandler.handle(command)
+      command = Commands::<%= aggregate_class_name %>::<%= command_class_name %>::Command.new(json_params)
+      Commands::<%= aggregate_class_name %>::<%= command_class_name %>::CommandHandler.new.handle(command)
       status 201
     end
 

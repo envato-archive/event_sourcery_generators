@@ -1,7 +1,6 @@
-
       apply <%= event_class_name %> do |event|
         # Mutate state of aggregate based on event, e.g.
         # @<%= event_name %>_occurred = true
       end
-      
-      
+
+

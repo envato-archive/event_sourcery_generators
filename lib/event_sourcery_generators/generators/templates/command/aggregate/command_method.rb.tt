@@ -1,4 +1,4 @@
-def <%= command_name %>(payload)
+      def <%= command_name %>(payload)
         # Perform any relevant contextual validations on aggregate
 
         # Apply the event without persistence
@@ -8,5 +8,5 @@ def <%= command_name %>(payload)
           body:         payload,
         )
       end
-      
-      
+
+
