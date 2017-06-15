@@ -5,7 +5,7 @@ module <%= project_class_name %>
 
       processor_name :<%= reactor_name.underscore %>
 
-      # emits_events ExampleEvent.type, AnotherEvent.type
+      # emits_events ExampleEvent, AnotherEvent
 
       # table :reactor_<%= reactor_name.underscore %> do
       #   column :todo_id, :uuid, primary_key: true
