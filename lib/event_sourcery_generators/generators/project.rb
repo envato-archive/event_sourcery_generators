@@ -51,14 +51,19 @@ module EventSourceryGenerators
         end
       end
 
+      def setup_processes_infrastructure
+        # Procfile for web + event processing processes
+        template('Procfile.tt', "#{project_name}/Procfile")
 
-      # def setup_processes_infrastructure
-      #   # Procfile for web + event processing processes
-      #   template('Procfile.tt', "#{project_name}/Procfile")
+        # Web process
+        template('config.ru.tt', "#{project_name}/config.ru")
+      end
 
-      #   # Web process
-      #   template('config.ru.tt', "#{project_name}/config.ru")
-      # end
+      private
+
+      def project_class_name
+        @project_class_name ||= project_name.underscore.camelize
+      end
     end
   end
 end

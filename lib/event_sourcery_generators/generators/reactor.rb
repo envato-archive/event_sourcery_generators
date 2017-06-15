@@ -19,6 +19,14 @@ module EventSourceryGenerators
       def project_name
         @project_name ||= File.split(Dir.pwd).last
       end
+
+      def project_class_name
+        @project_class_name ||= project_name.underscore.camelize
+      end
+
+      def reactor_class_name
+        @reactor_class_name ||= reactor_name.underscore.camelize
+      end
     end
   end
 end

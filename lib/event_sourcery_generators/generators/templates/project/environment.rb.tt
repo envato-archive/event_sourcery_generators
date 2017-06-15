@@ -1,7 +1,7 @@
 require 'event_sourcery'
 require 'event_sourcery/postgres'
 
-module <%= project_name.underscore.camelize %>
+module <%= project_class_name %>
   class Config
     attr_accessor :database_url
   end
@@ -26,6 +26,10 @@ module <%= project_name.underscore.camelize %>
     EventSourcery::Postgres.config.event_store
   end
 
+  def self.tracker
+    EventSourcery::Postgres.config.event_tracker
+  end
+
   def self.event_sink
     EventSourcery::Postgres.config.event_sink
   end
@@ -33,14 +37,21 @@ module <%= project_name.underscore.camelize %>
   def self.projections_database
     EventSourcery::Postgres.config.projections_database
   end
+
+  def self.repository
+    @repository ||= EventSourcery::Repository.new(
+      event_source: event_source,
+      event_sink: event_sink
+    )
+  end
 end
 
-<%= project_name.underscore.camelize %>.configure do |config|
-  config.database_url = "postgres://127.0.0.1:5432/<%= project_name.underscore %>_#{<%= project_name.underscore.camelize %>.environment}"
+<%= project_class_name %>.configure do |config|
+  config.database_url = "postgres://127.0.0.1:5432/<%= project_name.underscore %>_#{<%= project_class_name %>.environment}"
 end
 
 EventSourcery::Postgres.configure do |config|
-  database = Sequel.connect(<%= project_name.underscore.camelize %>.config.database_url)
+  database = Sequel.connect(<%= project_class_name %>.config.database_url)
 
   # NOTE: Often we choose to split our events and projections into separate
   # databases. For the purposes of this example we'll use one.

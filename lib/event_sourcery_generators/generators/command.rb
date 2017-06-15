@@ -73,7 +73,7 @@ module EventSourceryGenerators
       end
 
       def project_class_name
-        project_name.underscore.camelize
+        @project_class_name ||= project_name.underscore.camelize
       end
     end
   end

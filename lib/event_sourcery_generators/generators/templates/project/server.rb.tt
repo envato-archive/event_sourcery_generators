@@ -1,17 +1,41 @@
 require 'sinatra'
 
-module <%= project_name.underscore.camelize %>
+module <%= project_class_name %>
   class Server < Sinatra::Base
     BadRequest = Class.new(StandardError)
+    UnprocessableEntity = Class.new(StandardError)
+
+    # Ensure our error handlers are triggered in development
+    set :show_exceptions, :after_handler
+
+    configure :development do
+      require 'better_errors'
+      use BetterErrors::Middleware
+      BetterErrors.application_root = __dir__
+    end
+
+    error UnprocessableEntity do |error|
+      body "Unprocessable Entity: #{error.message}"
+      status 422
+    end
+
     error BadRequest do |error|
       body "Bad Request: #{error.message}"
       status 400
     end
 
-    UnprocessableEntity = Class.new(StandardError)
-    error UnprocessableEntity do |error|
-      body "Unprocessable Entity: #{error.message}"
-      status 422
+    before do
+      content_type :json
+    end
+
+    def json_params
+      # Coerce this into a symbolised Hash so Sinatra data
+      # structures don't leak into the command layer
+      Hash[
+        params.merge(
+          JSON.parse(request.body.read)
+        ).map{ |k, v| [k.to_sym, v] }
+      ]
     end
 
     # Add your API routes here!

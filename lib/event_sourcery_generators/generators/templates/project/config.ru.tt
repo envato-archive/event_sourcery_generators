@@ -1,3 +1,6 @@
-require 'app/server'
+$LOAD_PATH << '.'
 
-run <%= project_name.underscore.camelize %>::Server.new
+require 'config/environment'
+require 'app/web/server'
+
+run <%= project_class_name %>::Server.new

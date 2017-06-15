@@ -1,4 +1,4 @@
-module <%= project_name.underscore.camelize %>
+module <%= project_class_name %>
   module Aggregates
     class <%= aggregate_class_name %>
       include EventSourcery::AggregateRoot

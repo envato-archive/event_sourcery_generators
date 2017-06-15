@@ -1,4 +1,4 @@
-module <%= project_name.underscore.camelize %>
+module <%= project_class_name %>
   module Queries
     module <%= projection_name.classify %>
       class View

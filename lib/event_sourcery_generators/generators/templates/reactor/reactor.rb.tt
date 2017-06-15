@@ -1,6 +1,6 @@
-module <%= project_name.underscore.camelize %>
+module <%= project_class_name %>
   module Reactors
-    module <%= reactor_name.underscore.camelize %>
+    module <%= reactor_class_name %>
       include EventSourcery::Postgres::Reactor
 
       processor_name :<%= reactor_name.underscore %>
