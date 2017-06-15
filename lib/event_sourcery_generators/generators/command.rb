@@ -11,7 +11,7 @@ module EventSourceryGenerators
       end
 
       def create_or_inject_into_aggregate_file
-        aggregate_file = "app/aggregates/#{aggregate.underscore}.rb"
+        aggregate_file = "app/aggregates/#{aggregate_name}.rb"
 
         @command_method     = erb_file('aggregate/command_method.rb.tt').chomp
         @apply_event_method = erb_file('aggregate/apply_event_method.rb.tt').chomp
