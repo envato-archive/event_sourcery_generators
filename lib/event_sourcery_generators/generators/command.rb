@@ -61,10 +61,8 @@ module EventSourceryGenerators
       end
 
       def event_name
-        # Primitive way to get past tense of the command,
-        # will likely need more work in the future
-        past_tense = command.gsub(/e$/, '') + 'ed'
-        [ aggregate, past_tense ].map(&:underscore).join('_')
+        past_participle = Verbs::Conjugator.send(:past_participle, command.downcase.to_sym).to_s
+        [ aggregate, past_participle ].map(&:underscore).join('_')
       end
 
       def event_class_name
