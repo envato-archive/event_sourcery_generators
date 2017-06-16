@@ -1,0 +1,4 @@
+    <%= project_class_name %>::Reactors::<%= reactor_class_name %>.new(
+      tracker: tracker,
+      db_connection: db_connection,
+    ),

@@ -1,13 +1,38 @@
-module <%= project_name.camelize %>
-  module <%= aggregate_class_name %>
-    module <%= command_class_name %>
-      class Command
-        include EventSourcery::Command
+require 'app/aggregates/<%= aggregate_name %>'
 
-        attr_reader :aggregate_id, :payload
+module <%= project_class_name %>
+  module Commands
+    module <%= aggregate_class_name %>
+      module <%= command_class_name %>
+        class Command
+          attr_reader :aggregate_id, :payload
 
-        def validate!
-          # raise Error::MalformedCommandError.new(normalized_errors: request.normalized_errors)
+          def initialize(params)
+            @aggregate_id = params.delete(:aggregate_id)
+            @payload = params # Select the parameters you want to allow
+          end
+
+          def validate
+            # Add validation here
+          end
+        end
+
+        class CommandHandler
+          def initialize(repository: <%= project_class_name %>.repository)
+            @repository = repository
+          end
+
+          def handle(command)
+            command.validate
+
+            aggregate = repository.load(Aggregates::<%= aggregate_class_name %>, command.aggregate_id)
+            aggregate.<%= command_name %>(command.payload)
+            repository.save(aggregate)
+          end
+
+          private
+
+          attr_reader :repository
         end
       end
     end

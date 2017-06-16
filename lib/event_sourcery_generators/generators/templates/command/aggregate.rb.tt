@@ -1,10 +1,8 @@
-module <%= project_name.camelize %>
-  module <%= aggregate_class_name %>
+module <%= project_class_name %>
+  module Aggregates
     class <%= aggregate_class_name %>
       include EventSourcery::AggregateRoot
-<%= @command_method %>
-      private
-<%= @apply_event_method %>
+<%= @apply_event_method %><%= @command_method -%>
     end
   end
 end

@@ -1,26 +1,42 @@
-module <%= project_name.camelize %>
+module <%= project_class_name %>
   module Reactors
-    module <%= reactor_name.camelize %>
-      include EventSourcery::EventProcessing::Reactor
+    class <%= reactor_class_name %>
+      include EventSourcery::Postgres::Reactor
 
-      # The name of the reactor
-      processor_name :<%= reactor_name %>
+      processor_name :<%= reactor_name.underscore %>
 
-      # The event type(s) the reactor is subscribed to
-      processes_events :placeholder
+      # emits_events ExampleEvent, AnotherEvent
 
-      # The event type(s) the reactor emits
-      emits_events :placeholder
+      # table :reactor_<%= reactor_name.underscore %> do
+      #   column :todo_id, :uuid, primary_key: true
+      #   column :title,   :text
+      # end
 
-      # Each event type the reactor processes is invoked through
-      # `project_<event.type>`, receiving the `event` as argument
-      def process_placeholder(event)
-        emit_event(
-          type: :placeholder,
-          aggregate_id: event.aggregate_id,
-          body: {},
-        )
+    <%- if event_names.empty? -%>
+      # process TodoAdded do |event|
+      #   table.insert(
+      #     todo_id: event.aggregate_id,
+      #     title:   event.body['title'],
+      #   )
+      # end
+
+      # process TodoCompleted do |event|
+      #   todo = table.where(todo_id: event.aggregate_id).first
+      #
+      #   emit_event(
+      #     StakeholderNotifiedOfTodoCompletion.new(
+      #       aggregate_id: event.aggregate_id,
+      #       body:         { title: todo[:title] },
+      #     )
+      #   )
+      # end
+    <%- else -%>
+      <% event_names.each do |event_name| %>
+      process <%= event_name.underscore.camelize %> do |event|
+        # Update scratch tables, emit events, ...
       end
+      <%- end -%>
+    <%- end -%>
     end
   end
 end

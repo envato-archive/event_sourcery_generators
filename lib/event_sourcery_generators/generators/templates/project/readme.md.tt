@@ -1,14 +1,18 @@
-# EventSourcery Generators
+# <%= project_class_name %>
 
-An opinionated CLI tool for building event sourced systems with EventSourcery.
+## Get started
 
-## Getting started
+Ensure you have Postgres and Ruby 2.3 or higher installed.
 
-Generate a new event sourcery application:
+## Using the Application
+
+Start the web app and processors.
 
 ```sh
-$ eventsourcery new recipe_book
+$ bundle exec foreman start
 ```
+
+## Adding features
 
 Generate a new aggregate, command and event:
 
@@ -27,9 +31,3 @@ Generate a reactor that subscribes to events:
 ```sh
 $ eventsourcery generate:reactor recipe_publisher recipe_added recipe_deleted
 ```
-
-## References
-
-For more information, check out the `event_sourcery` repository here:
-<https://github.com/envato/event_sourcery>
-

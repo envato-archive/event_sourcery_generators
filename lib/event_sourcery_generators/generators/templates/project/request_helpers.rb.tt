@@ -1,0 +1,10 @@
+module RequestHelpers
+  def app
+    @@app ||= <%= project_class_name %>::Server
+  end
+
+  def last_event(aggregate_id)
+    <%= project_class_name %>.event_store
+      .get_events_for_aggregate_id(aggregate_id).last
+  end
+end

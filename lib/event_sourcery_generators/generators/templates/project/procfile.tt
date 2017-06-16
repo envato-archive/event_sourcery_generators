@@ -1,1 +1,2 @@
-web: unicorn -I . -c config/unicorn.rb config.ru
+web: bundle exec shotgun -p 3000
+processors: bundle exec rake run_processors

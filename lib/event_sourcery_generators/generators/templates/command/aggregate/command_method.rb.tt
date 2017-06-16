@@ -1,11 +1,11 @@
-
       def <%= command_name %>(payload)
-        # Perform any relevant contextual validations on aggregate, e.g.
-        # raise Error::RejectedCommandError if @<%= event_name %>_occurred
+        # Perform any relevant contextual validations on aggregate
 
-        # Set the event body
-        event_body = payload
-
-        # Apply and persist the event
-        apply_event EventSourcery::Event.new(type: :<%= event_name %>, body: event_body)
+        # Apply the event without persistence
+        apply_event(
+          <%= event_class_name %>,
+          aggregate_id: id,
+          body:         payload,
+        )
       end
+
