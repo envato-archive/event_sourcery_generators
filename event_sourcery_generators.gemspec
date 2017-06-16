@@ -6,12 +6,12 @@ require 'event_sourcery_generators/version'
 Gem::Specification.new do |spec|
   spec.name = 'event_sourcery_generators'
   spec.version = EventSourceryGenerators::VERSION
-  spec.authors = ['Sebastian von Conrad']
-  spec.email = ['sebastian.von.conrad@envato.com']
+  spec.authors = ['Sebastian von Conrad', 'Pablo Lee', 'Chun-wei Kuo', 'Giancarlo Salamanca']
+  spec.email = ['sebastian.von.conrad@envato.com', 'pablo.lee@envato.com', 'chun-wei.kuo@envato.com', 'giancarlo.salamanca@envato.com']
 
-  spec.summary       = %q{Generators for EventSourcery}
-  spec.description   = %q{}
-  spec.homepage      = ''
+  spec.summary       = 'Generators for EventSourcery'
+  spec.description   = 'An opinionated CLI tool for building event-sourced Ruby services with EventSourcery'
+  spec.homepage      = 'https://github.com/envato/event_sourcery_generators'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'bin'
