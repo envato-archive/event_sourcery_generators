@@ -12,10 +12,10 @@ $ ./script/setup
 
 ## Using the Application
 
-Start the web app and processors.
+Start the web server and processors (reactors and projectors):
 
 ```sh
-$ bundle exec foreman start
+$ foreman start
 ```
 
 ## Adding features
