@@ -1,0 +1,16 @@
+{
+  "name": "<%= project_class_name %>",
+  "description": "<%= project_class_name %>, an EventSourcery app",
+  "keywords": ["<%= project_name %>", "ruby", "event_sourcery", "cqrs"],
+  "formation": {
+    "web": {
+      "quantity": 1
+    },
+    "processors": {
+      "quantity": 1
+    }
+  },
+  "scripts": {
+    "postdeploy": "bundle exec rake db:migrate"
+  }
+}
