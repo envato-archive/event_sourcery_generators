@@ -1,8 +1,14 @@
 # <%= project_class_name %>
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 ## Get started
 
-Ensure you have Postgres and Ruby 2.3 or higher installed.
+Ensure you have Postgres and Ruby 2.3 or higher installed, then run the setup script:
+
+```sh
+$ ./script/setup
+```
 
 ## Using the Application
 

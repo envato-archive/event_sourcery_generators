@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+echo
+echo "--- Installing bundled gems"
+echo
+
+bundle install
+
+if ! type -t "foreman" > /dev/null; then
+  echo
+  echo "--- Installing foreman"
+  echo
+
+  gem install foreman
+fi
+
+echo
+echo "--- Creating and migrating databases"
+echo
+
+bundle exec rake db:create db:migrate
+RACK_ENV=test bundle exec rake db:create db:migrate

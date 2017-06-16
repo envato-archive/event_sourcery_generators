@@ -15,6 +15,5 @@ group :development, :test do
   gem 'rack-test'
   gem 'database_cleaner'
   gem 'better_errors'
-  gem 'foreman'
   gem 'shotgun'
 end

@@ -5,7 +5,7 @@ module EventSourceryGenerators
 
       argument :project_name
 
-      class_options skip_bundle: false, skip_db: false, skip_rspec: false
+      class_options skip_tests: false, skip_setup: false
 
       def self.source_root
         File.join(File.dirname(__FILE__), 'templates', 'project')
@@ -20,14 +20,6 @@ module EventSourceryGenerators
         template('readme.md.tt', "#{project_name}/README.md")
       end
 
-      def bundle_install
-        return if options[:skip_bundle]
-
-        inside(project_name) do
-          run('bundle install', capture: true)
-        end
-      end
-
       def setup_app
         template('server.rb.tt', "#{project_name}/app/web/server.rb")
 
@@ -40,27 +32,32 @@ module EventSourceryGenerators
         template('environment.rb.tt', "#{project_name}/config/environment.rb")
       end
 
+      def setup_scripts
+        %w{server setup}.each do |script_name|
+          template("script_#{script_name}.tt", "#{project_name}/script/#{script_name}")
+          chmod("#{project_name}/script/#{script_name}", 0755)
+        end
+      end
+
       def setup_rspec
-        return if options[:skip_rspec]
+        return if options[:skip_tests]
 
         template('spec_helper.rb.tt', "#{project_name}/spec/spec_helper.rb")
         template('request_helpers.rb.tt', "#{project_name}/spec/support/request_helpers.rb")
       end
 
-      def setup_database
-        return if options[:skip_db]
-
-        inside(project_name) do
-          run('bundle exec rake db:create db:migrate', capture: false)
-        end
+      def setup_processes_infrastructure
+        template('Procfile.tt', "#{project_name}/Procfile")
+        template('config.ru.tt', "#{project_name}/config.ru")
+        template('app.json.tt', "#{project_name}/app.json")
       end
 
-      def setup_processes_infrastructure
-        # Procfile for web + event processing processes
-        template('Procfile.tt', "#{project_name}/Procfile")
+      def run_setup_script
+        return if options[:skip_setup]
 
-        # Web process
-        template('config.ru.tt', "#{project_name}/config.ru")
+        inside(project_name) do
+          run('./script/setup')
+        end
       end
 
       private
