@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name = 'event_sourcery_generators'
   spec.version = EventSourceryGenerators::VERSION
   spec.authors = ['Sebastian von Conrad', 'Pablo Lee', 'Chun-wei Kuo', 'Giancarlo Salamanca']
-  spec.email = ['sebastian.von.conrad@envato.com', 'pablo.lee@envato.com', 'chun-wei.kuo@envato.com', 'giancarlo.salamanca@envato.com']
+  spec.email = ['sebastian.von.conrad@envato.com', 'pablo.lee@envato.com', 'chun.wei.kuo@envato.com', 'giancarlo.salamanca@envato.com']
 
   spec.summary       = 'Generators for EventSourcery'
   spec.description   = 'An opinionated CLI tool for building event-sourced Ruby services with EventSourcery'
