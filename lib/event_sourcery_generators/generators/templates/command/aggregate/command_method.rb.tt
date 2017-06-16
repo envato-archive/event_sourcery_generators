@@ -1,3 +1,4 @@
+
       def <%= command_name %>(payload)
         # Perform any relevant contextual validations on aggregate
 
@@ -8,4 +9,3 @@
           body:         payload,
         )
       end
-
