@@ -11,7 +11,7 @@ module EventSourceryGenerators
       end
 
       def create_or_inject_into_aggregate_file
-        aggregate_file = "app/aggregates/#{aggregate_name}.rb"
+        aggregate_file = "#{project_root}/app/aggregates/#{aggregate_name}.rb"
 
         @command_method     = erb_file('aggregate/command_method.rb.tt')
         @apply_event_method = erb_file('aggregate/apply_event_method.rb.tt')
@@ -25,11 +25,11 @@ module EventSourceryGenerators
       end
 
       def create_command_file
-        template('command.rb.tt', "app/commands/#{aggregate}/#{command}.rb")
+        template('command.rb.tt', "#{project_root}/app/commands/#{aggregate}/#{command}.rb")
       end
 
       def create_event
-        event_file = "app/events/#{event_name}.rb"
+        event_file = "#{project_root}/app/events/#{event_name}.rb"
 
         unless File.exist?(event_file)
           template('event.rb.tt', event_file)
@@ -37,7 +37,7 @@ module EventSourceryGenerators
       end
 
       def inject_command_to_api
-        insert_into_file('app/web/server.rb', after: "< Sinatra::Base\n") do
+        insert_into_file("#{project_root}/app/web/server.rb", after: "< Sinatra::Base\n") do
           erb_file('api_endpoint.rb.tt')
         end
       end
@@ -75,11 +75,24 @@ module EventSourceryGenerators
       end
 
       def project_name
-        @project_name ||= File.split(Dir.pwd).last
+        event_sourcery_project.project_name
+      end
+
+      def project_root
+        event_sourcery_project.project_root
       end
 
       def project_class_name
         @project_class_name ||= project_name.underscore.camelize
+      end
+
+      def event_sourcery_project
+        @event_sourcery_project ||= EventSourceryProject.find()
+        unless @event_sourcery_project
+          raise ArgumentError, "must be in an event sourcery directory"
+        end
+
+        @event_sourcery_project
       end
     end
   end

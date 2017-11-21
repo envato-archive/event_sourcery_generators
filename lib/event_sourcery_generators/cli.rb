@@ -2,6 +2,7 @@ require 'thor'
 require 'active_support/inflector'
 require 'verbs'
 
+require 'event_sourcery_generators/event_sourcery_project'
 require 'event_sourcery_generators/generators/project'
 require 'event_sourcery_generators/generators/command'
 require 'event_sourcery_generators/generators/query'

@@ -11,27 +11,31 @@ module EventSourceryGenerators
       end
 
       def create_query
-        template('query.rb.tt', "app/projections/#{query_name}/query.rb")
+        template('query.rb.tt', "#{project_root}/app/projections/#{query_name}/query.rb")
       end
 
       def create_projector
-        template('projector.rb.tt', "app/projections/#{query_name}/projector.rb")
+        template('projector.rb.tt', "#{project_root}/app/projections/#{query_name}/projector.rb")
       end
 
       def inject_query_to_api
-        insert_into_file('app/web/server.rb', after: "< Sinatra::Base\n") do
+        insert_into_file("#{project_root}/app/web/server.rb", after: "< Sinatra::Base\n") do
           erb_file('api_endpoint.rb.tt')
         end
       end
 
       def add_projector_to_rakefile
-        insert_into_file('Rakefile', erb_file('projector_process.tt'), after: "processors = [\n")
+        insert_into_file("#{project_root}/Rakefile", erb_file('projector_process.tt'), after: "processors = [\n")
       end
 
       private
 
       def project_name
-        @project_name ||= File.split(Dir.pwd).last
+        event_sourcery_project.project_name
+      end
+
+      def project_root
+        event_sourcery_project.project_root
       end
 
       def project_class_name
@@ -45,6 +49,15 @@ module EventSourceryGenerators
       def erb_file(file)
         path = File.join(self.class.source_root, file)
         ERB.new(::File.binread(path), nil, "-", "@output_buffer").result(binding)
+      end
+
+      def event_sourcery_project
+        @event_sourcery_project ||= EventSourceryProject.find()
+        unless @event_sourcery_project
+          raise ArgumentError, "must be in an event sourcery directory"
+        end
+
+        @event_sourcery_project
       end
     end
   end

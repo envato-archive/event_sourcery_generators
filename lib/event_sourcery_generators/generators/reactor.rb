@@ -11,17 +11,21 @@ module EventSourceryGenerators
       end
 
       def create_reactor
-        template('reactor.rb.tt', "app/reactors/#{reactor_name}.rb")
+        template('reactor.rb.tt', "#{project_root}/app/reactors/#{reactor_name}.rb")
       end
 
       def add_reactor_to_rakefile
-        insert_into_file('Rakefile', erb_file('reactor_process.tt'), after: "processors = [\n")
+        insert_into_file("#{project_root}/Rakefile", erb_file('reactor_process.tt'), after: "processors = [\n")
       end
 
       private
 
       def project_name
-        @project_name ||= File.split(Dir.pwd).last
+        event_sourcery_project.project_name
+      end
+
+      def project_root
+        event_sourcery_project.project_root
       end
 
       def project_class_name
@@ -35,6 +39,15 @@ module EventSourceryGenerators
       def erb_file(file)
         path = File.join(self.class.source_root, file)
         ERB.new(::File.binread(path), nil, "-", "@output_buffer").result(binding)
+      end
+
+      def event_sourcery_project
+        @event_sourcery_project ||= EventSourceryProject.find()
+        unless @event_sourcery_project
+          raise ArgumentError, "must be in an event sourcery directory"
+        end
+
+        @event_sourcery_project
       end
     end
   end
