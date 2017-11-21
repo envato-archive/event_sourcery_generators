@@ -25,7 +25,7 @@ module EventSourceryGenerators
       end
 
       def create_command_file
-        template('command.rb.tt', "app/commands/#{aggregate}/#{command}.rb")
+        template('command.rb.tt', "app/commands/#{aggregate_name}/#{command_name}.rb")
       end
 
       def create_event
