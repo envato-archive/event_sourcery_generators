@@ -6,8 +6,8 @@ require 'database_cleaner'
 
 $LOAD_PATH << '.'
 
-require 'app/web/server'
 require 'config/environment'
+require 'app/web/server'
 require 'spec/support/request_helpers'
 
 RSpec.configure do |config|
