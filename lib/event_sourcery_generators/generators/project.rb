@@ -47,7 +47,7 @@ module EventSourceryGenerators
       end
 
       def setup_processes_infrastructure
-        template('Procfile.tt', "#{project_name}/Procfile")
+        template('procfile.tt', "#{project_name}/Procfile")
         template('config.ru.tt', "#{project_name}/config.ru")
         template('app.json.tt', "#{project_name}/app.json")
       end
