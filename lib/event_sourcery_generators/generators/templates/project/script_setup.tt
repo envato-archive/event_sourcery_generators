@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh -eou pipefail
 
 echo
 echo "--- Installing bundled gems"
@@ -18,5 +18,8 @@ echo
 echo "--- Creating and migrating databases"
 echo
 
-bundle exec rake db:create db:migrate
-RACK_ENV=test bundle exec rake db:create db:migrate
+createdb <%= project_name.underscore %>_development
+createdb <%= project_name.underscore %>_test
+
+bundle exec rake db:migrate
+RACK_ENV=test bundle exec rake db:migrate
