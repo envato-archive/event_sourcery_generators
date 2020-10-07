@@ -10,7 +10,7 @@ require 'event_sourcery_generators/generators/reactor'
 module EventSourceryGenerators
   class CLI < Thor
     # Creating projects
-    register(Generators::Project, 'new', 'new [PROJECT NAME]', 'Creates a new EventSourcery project')
+    register(Generators::Project, 'new', 'new [PROJECT NAME] <DIRECTORY>', 'Creates a new EventSourcery project of PROJECT NAME in directory (defaults to current directory)')
 
     # Creating components inside a project
     register(Generators::Command, 'generate:command', 'generate:command [AGGREGATE] [COMMAND]', 'Generates a new COMMAND for AGGREGATE')

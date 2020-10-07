@@ -4,6 +4,7 @@ module EventSourceryGenerators
       include Thor::Actions
 
       argument :project_name
+      argument :project_root, required: false
 
       class_options skip_tests: false, skip_setup: false
 
@@ -12,55 +13,59 @@ module EventSourceryGenerators
       end
 
       def setup_ruby_project
-        template('gemfile.tt', "#{project_name}/Gemfile")
-        template('rakefile.tt', "#{project_name}/Rakefile")
+        template('gemfile.tt', "#{project_directory}/Gemfile")
+        template('rakefile.tt', "#{project_directory}/Rakefile")
       end
 
       def add_readme
-        template('readme.md.tt', "#{project_name}/README.md")
+        template('readme.md.tt', "#{project_directory}/README.md")
       end
 
       def setup_app
-        template('server.rb.tt', "#{project_name}/app/web/server.rb")
+        template('server.rb.tt', "#{project_directory}/app/web/server.rb")
 
         %w{aggregates commands events projections reactors}.each do |directory|
-          create_file("#{project_name}/app/#{directory}/.gitkeep")
+          create_file("#{project_directory}/app/#{directory}/.gitkeep")
         end
       end
 
       def setup_environment
-        template('environment.rb.tt', "#{project_name}/config/environment.rb")
+        template('environment.rb.tt', "#{project_directory}/config/environment.rb")
       end
 
       def setup_scripts
         %w{server setup}.each do |script_name|
-          template("script_#{script_name}.tt", "#{project_name}/script/#{script_name}")
-          chmod("#{project_name}/script/#{script_name}", 0755)
+          template("script_#{script_name}.tt", "#{project_directory}/script/#{script_name}")
+          chmod("#{project_directory}/script/#{script_name}", 0755)
         end
       end
 
       def setup_rspec
         return if options[:skip_tests]
 
-        template('spec_helper.rb.tt', "#{project_name}/spec/spec_helper.rb")
-        template('request_helpers.rb.tt', "#{project_name}/spec/support/request_helpers.rb")
+        template('spec_helper.rb.tt', "#{project_directory}/spec/spec_helper.rb")
+        template('request_helpers.rb.tt', "#{project_directory}/spec/support/request_helpers.rb")
       end
 
       def setup_processes_infrastructure
-        template('procfile.tt', "#{project_name}/Procfile")
-        template('config.ru.tt', "#{project_name}/config.ru")
-        template('app.json.tt', "#{project_name}/app.json")
+        template('procfile.tt', "#{project_directory}/Procfile")
+        template('config.ru.tt', "#{project_directory}/config.ru")
+        template('app.json.tt', "#{project_directory}/app.json")
       end
 
       def run_setup_script
         return if options[:skip_setup]
 
-        inside(project_name) do
+        inside(project_directory) do
           run('./script/setup')
         end
       end
 
       private
+
+      def project_directory
+        project_root || project_name
+      end
 
       def project_class_name
         @project_class_name ||= project_name.underscore.camelize
